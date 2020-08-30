@@ -3,6 +3,9 @@ float r;
 float[] rq1 = new float[3];
 float[] rq2 = new float[3];
 
+String[] modeList = {"","losange","rond"};
+String modeChoice = modeList[1];
+
 int[] AB = new int[2];
 int[] AC = new int[2];
 int[] AD = new int[2];
@@ -51,7 +54,6 @@ void setup() {
   nAnC[1]=0;
   nAnD[0]=AD[1];
   nAnD[1]=AD[0];
-  int taille=1000;
   int[][] points = new int[4][2];
   int[] A = {0, abs(AB[1])};
   int[] B = {A[0]+AB[0], A[1]+AB[1]};
@@ -107,15 +109,15 @@ void draw() {
 
 void quadrilatere(int[] A, int[] B, int[] C, int[] D) {
   beginShape();
-  //line(A[0], A[1], B[0], B[1]);
-  //line(B[0], B[1], C[0], C[1]);
-  //line(C[0], C[1], D[0], D[1]);
-  //line(D[0], D[1], A[0], A[1]);
   vertex(A[0], A[1]);
   vertex(B[0], B[1]);
   vertex(C[0], C[1]);
   vertex(D[0], D[1]);
   endShape(CLOSE);
+}
+
+void rond(int[] A, int[] B, int[] C, int[] D){
+  ellipse(B[0], A[1], C[0]-A[0], D[1]-B[1]);
 }
 
 
@@ -130,8 +132,12 @@ void q1 (int[] A, int[] B, int[] C, int[] D) {
 
   D[0]=A[0]+AD[0];
   D[1]=A[1]+AD[1];
-
-  quadrilatere(A, B, C, D);
+  
+  if (modeChoice==modeList[1]){
+    quadrilatere(A, B, C, D);
+  }else if (modeChoice==modeList[2]){
+    rond(A, B, C, D);
+  }
 }
 
 void q2 (int[] A, int[] B, int[] C, int[] D) {
@@ -145,7 +151,11 @@ void q2 (int[] A, int[] B, int[] C, int[] D) {
   D[0]=A[0]+nAnD[0];
   D[1]=A[1]+nAnD[1];
 
-  quadrilatere(A, B, C, D);
+  if (modeChoice==modeList[1]){
+    quadrilatere(A, B, C, D);
+  }else if (modeChoice==modeList[2]){
+    rond(A, B, C, D);
+  }
 }
 
 
